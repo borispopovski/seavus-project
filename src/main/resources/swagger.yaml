@@ -1,0 +1,197 @@
+openapi: 3.0.0
+info:
+  title: Demo Project
+  description: Demo Project API.
+  version: 1.0.0
+tags:
+  - name: "user"
+    description: "User tag for demo purposes"
+servers:
+- url: http://localhost:8080/
+paths:
+  /user:
+    get:
+      tags:
+        - "User"
+      summary: Get Users
+      operationId: getUsers
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserDto'
+    post:
+      tags:
+        - "User"
+      summary: Add a User
+      operationId: addUser
+      requestBody:
+        description: User to be added in DB
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDto'
+        required: true
+      responses:
+        200:
+          description: User Added
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponseDto"
+           
+      x-codegen-request-body-name: userDto   
+  /user/{id}:
+    get:
+      tags:
+        - "User"
+      summary: "Find user by ID"
+      operationId: "getUserById"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "ID of user to return"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDto"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "User not found"
+   
+    delete:
+      tags:
+      - "User"
+      summary: "Deletes a user"
+      operationId: "deleteUserById"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "User id to delete"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: User Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponseDto"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "User not found"
+     
+    put:
+      tags:
+      - "User"
+      summary: "Updated user"
+      operationId: "updateUser"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "id that need to be updated"
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        description: User to be added in shop
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserDto'
+      responses:
+        200:
+          description: User Deleted
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserResponseDto"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "User not found"
+    
+  /user/username/{username}:
+    get:
+      tags:
+      - "User"
+      summary: "Get user by user name"
+      operationId: "getUserByName"
+      parameters:
+      - name: "username"
+        in: "path"
+        description: "The name that needs to be fetched. Use user1 for testing. "
+        required: true
+        schema:
+          type: "string"
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDto"
+        400:
+          description: "Invalid username supplied"
+        404:
+          description: "User not found"
+
+components:
+  schemas:
+    UserDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+          writeOnly: true
+        phone:
+          type: string
+        userStatus:
+          type: integer
+          format: int32
+          description: User Status
+    UserResponseDto:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+  responses:
+    UnauthorizedError:
+      description: Access token is missing or invalid        
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Bearer token to access these api endpoints
+security:
+- bearerAuth: []

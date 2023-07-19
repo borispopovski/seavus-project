@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: mk.seavus.demoprojcet.DemoProjcetApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.705 s - in mk.seavus.demoprojcet.DemoProjcetApplicationTests
