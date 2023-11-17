@@ -7,7 +7,7 @@ tags:
   - name: "user"
     description: "User tag for demo purposes"
 servers:
-- url: http://localhost:8080/
+  - url: http://localhost:8080/
 paths:
   /user:
     get:
@@ -43,72 +43,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/UserResponseDto"
-           
-      x-codegen-request-body-name: userDto   
-  /user/{id}:
-    get:
-      tags:
-        - "User"
-      summary: "Find user by ID"
-      operationId: "getUserById"
-      parameters:
-      - name: "id"
-        in: "path"
-        description: "ID of user to return"
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UserDto"
-        400:
-          description: "Invalid ID supplied"
-        404:
-          description: "User not found"
-   
-    delete:
-      tags:
-      - "User"
-      summary: "Deletes a user"
-      operationId: "deleteUserById"
-      parameters:
-      - name: "id"
-        in: "path"
-        description: "User id to delete"
-        required: true
-        schema:
-          type: integer
-          format: int64
-      responses:
-        200:
-          description: User Deleted
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/UserResponseDto"
-        400:
-          description: "Invalid ID supplied"
-        404:
-          description: "User not found"
-     
+
     put:
       tags:
-      - "User"
+        - "User"
       summary: "Updated user"
       operationId: "updateUser"
-      parameters:
-      - name: "id"
-        in: "path"
-        description: "id that need to be updated"
-        required: true
-        schema:
-          type: integer
-          format: int64
       requestBody:
         description: User to be added in shop
         required: true
@@ -127,20 +67,66 @@ paths:
           description: "Invalid ID supplied"
         404:
           description: "User not found"
-    
+  /user/{id}:
+    get:
+      tags:
+        - "User"
+      summary: "Find user by ID"
+      operationId: "getUserById"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "ID of user to return"
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDto"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "User not found"
+
+    delete:
+      tags:
+        - "User"
+      summary: "Deletes a user"
+      operationId: "deleteUserById"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "User id to delete"
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: "User Deleted"
+        400:
+          description: "Invalid ID supplied"
+        404:
+          description: "User not found"
+
   /user/username/{username}:
     get:
       tags:
-      - "User"
+        - "User"
       summary: "Get user by user name"
       operationId: "getUserByName"
       parameters:
-      - name: "username"
-        in: "path"
-        description: "The name that needs to be fetched. Use user1 for testing. "
-        required: true
-        schema:
-          type: "string"
+        - name: "username"
+          in: "path"
+          description: "The name that needs to be fetched. Use user1 for testing. "
+          required: true
+          schema:
+            type: "string"
       responses:
         200:
           description: OK
@@ -186,7 +172,7 @@ components:
           format: int64
   responses:
     UnauthorizedError:
-      description: Access token is missing or invalid        
+      description: Access token is missing or invalid
   securitySchemes:
     bearerAuth:
       type: http
@@ -194,4 +180,4 @@ components:
       bearerFormat: JWT
       description: Bearer token to access these api endpoints
 security:
-- bearerAuth: []
+  - bearerAuth: []

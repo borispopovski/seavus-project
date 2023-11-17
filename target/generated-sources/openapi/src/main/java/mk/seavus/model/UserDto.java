@@ -1,18 +1,27 @@
 package mk.seavus.model;
 
-import java.io.Serializable;
+import java.net.URI;
 import java.util.Objects;
-
-import javax.annotation.Generated;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-
+import com.fasterxml.jackson.annotation.JsonCreator;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.openapitools.jackson.nullable.JsonNullable;
+import java.io.Serializable;
+import java.time.OffsetDateTime;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import io.swagger.v3.oas.annotations.media.Schema;
+
+
+import java.util.*;
+import javax.annotation.Generated;
 
 /**
  * UserDto
  */
-
+@AllArgsConstructor
+@NoArgsConstructor
 @Generated(value = "org.openapitools.codegen.languages.SpringCodegen")
 public class UserDto implements Serializable {
 
